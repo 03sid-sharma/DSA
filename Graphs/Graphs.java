@@ -3,23 +3,24 @@ import java.util.*;
 public class Graphs {
     public static void main(String[] args) {
         GraphsImplement graph = new GraphsImplement();
+        graph.addNode("X");
         graph.addNode("A");
         graph.addNode("B");
-        graph.addNode("C");
-        graph.addNode("D");
-        graph.addEdge("A", "B");
-        graph.addEdge("B", "D");
-        graph.addEdge("D", "C");
-        graph.addEdge("A", "C");
-
-        graph.traverseDepthFirst("A");
-
-        // graph.addNode("A");
-        // graph.addNode("B");
-        // graph.addNode("C");
+        graph.addNode("P");
         // graph.addEdge("A", "B");
+        // graph.addEdge("B", "D");
+        // graph.addEdge("D", "C");
         // graph.addEdge("A", "C");
-        // // graph.removeEdge("A","C");
+        graph.addEdge("X", "B");
+        graph.addEdge("X", "A");
+        graph.addEdge("A", "P");
+        graph.addEdge("B", "P");
+
+        System.out.println(graph.topologicalSort());
+        // graph.traverseBreadthFirst("A");
+        // graph.traverseDepthFirst("A");
+
+        // graph.removeEdge("A","C");
         // graph.removeNode("B");
         // graph.print();
     }
@@ -106,20 +107,70 @@ class GraphsImplement {
         if (node == null)
             return;
 
-        Stack<Node> stack=new Stack<>();
-        Set<Node> visited=new HashSet<>();
+        Stack<Node> stack = new Stack<>();
+        Set<Node> visited = new HashSet<>();
         stack.push(node);
-        while(!stack.isEmpty()) {
-            Node current=stack.pop();
-            if(visited.contains(current))
+        while (!stack.isEmpty()) {
+            Node current = stack.pop();
+            if (visited.contains(current))
                 continue;
             System.out.println(current);
             visited.add(current);
-            
-            for(Node neighbour:adjacencyList.get(current)) {
-                if(!visited.contains(neighbour))
+
+            for (Node neighbour : adjacencyList.get(current)) {
+                if (!visited.contains(neighbour))
                     stack.push(neighbour);
             }
         }
+    }
+
+    public void traverseBreadthFirst(String root) {
+        Node node = nodes.get(root);
+        if (node == null)
+            return;
+
+        Queue<Node> queue = new ArrayDeque<>();
+        Set<Node> visited = new HashSet<>();
+
+        queue.add(node);
+        while (!queue.isEmpty()) {
+            Node current = queue.remove();
+            if (visited.contains(current))
+                continue;
+            System.out.println(current);
+            visited.add(current);
+
+            for (Node neighbour : adjacencyList.get(current)) {
+                if (!visited.contains(neighbour))
+                    queue.add(neighbour);
+            }
+        }
+    }
+
+    public List<String> topologicalSort() {
+        Set<Node> visited = new HashSet<>();
+        Stack<Node> stack = new Stack<>();
+
+        for (Node node : nodes.values())
+            topologicalSort(node, visited, stack);
+
+        List<String> sorted = new ArrayList<>();
+        while (!stack.isEmpty()) {
+            sorted.add(stack.pop().label);
+        }
+
+        return sorted;
+    }
+
+    private void topologicalSort(Node node, Set<Node> visited, Stack<Node> stack) {
+        if (visited.contains(node))
+            return;
+
+        visited.add(node);
+
+        for (Node neighbour : adjacencyList.get(node))
+            topologicalSort(neighbour, visited, stack);
+
+        stack.push(node);
     }
 }
