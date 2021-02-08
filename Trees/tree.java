@@ -8,7 +8,7 @@ class MainTree {
         binaryTree.insert(6);
         binaryTree.insert(8);
         binaryTree.insert(10);
-        System.out.println("Done!");
+        System.out.println(binaryTree.find(11));
     }
 }
 class Tree {
@@ -57,7 +57,16 @@ class Tree {
         }
     }
     
-    // public boolean find(int value){
-
-    // }
+    public boolean find(int value){
+        Node current=root;
+        while(current!=null){
+            if(value<current.value)
+                current=current.leftChild;
+            else if(value>current.value)
+                current=current.rightChild;
+            else
+                return true;
+        }
+        return false;
+    }
 }
