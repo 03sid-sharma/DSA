@@ -8,11 +8,12 @@ class MainTree {
         binaryTree.insert(6);
         binaryTree.insert(8);
         binaryTree.insert(10);
-        
+
         // System.out.println(binaryTree.find(11));
         // binaryTree.traversePreOrder();
         // binaryTree.traverseInOrder();
-        binaryTree.traversePostOrder();
+        // binaryTree.traversePostOrder();
+        System.out.println(binaryTree.height());
     }
 }
 
@@ -88,7 +89,7 @@ class Tree {
         traversePreOrder(root.rightChild);
     }
 
-    public void traverseInOrder(){
+    public void traverseInOrder() {
         traverseInOrder(root);
     }
 
@@ -98,9 +99,9 @@ class Tree {
         traverseInOrder(root.leftChild);
         System.out.println(root.value);
         traverseInOrder(root.rightChild);
-    }    
-    
-    public void traversePostOrder(){
+    }
+
+    public void traversePostOrder() {
         traversePostOrder(root);
     }
 
@@ -110,5 +111,19 @@ class Tree {
         traversePostOrder(root.leftChild);
         traversePostOrder(root.rightChild);
         System.out.println(root.value);
+    }
+
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node root) {
+        if (root == null)
+            return -1;
+            
+        if (root.leftChild == null && root.rightChild == null)
+            return 0;
+
+        return 1 + Math.max(height(root.leftChild), height(root.rightChild));
     }
 }
