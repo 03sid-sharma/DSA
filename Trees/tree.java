@@ -9,6 +9,15 @@ class MainTree {
         binaryTree.insert(8);
         binaryTree.insert(10);
 
+        Tree binaryTree2 = new Tree();
+        binaryTree2.insert(7);
+        binaryTree2.insert(4);
+        binaryTree2.insert(9);
+        binaryTree2.insert(1);
+        binaryTree2.insert(6);
+        binaryTree2.insert(8);
+        binaryTree2.insert(10);
+
         // System.out.println(binaryTree.find(11));
         // binaryTree.traversePreOrder();
         // binaryTree.traverseInOrder();
@@ -17,7 +26,10 @@ class MainTree {
         // System.out.println(binaryTree.min());
         // System.out.println(binaryTree.max());
         // System.out.println(binaryTree.minBST());
-        System.out.println(binaryTree.maxBST());
+        // System.out.println(binaryTree.maxBST());
+
+        System.out.println(binaryTree.equals(binaryTree2));
+
     }
 }
 
@@ -146,7 +158,7 @@ class Tree {
         return last.value;
     }
 
-    public int min(){
+    public int min() {
         return min(root);
     }
 
@@ -179,7 +191,7 @@ class Tree {
         return last.value;
     }
 
-    public int max(){
+    public int max() {
         return max(root);
     }
 
@@ -195,6 +207,23 @@ class Tree {
         int right = max(root.rightChild);
 
         return Math.max(Math.max(left, right), root.value);
+    }
+
+    public boolean equals(Tree other) {
+        if (other == null)
+            return false;
+
+        return equals(root, other.root);
+    }
+
+    private boolean equals(Node first, Node second) {
+        if (first == null && second == null)
+            return true;
+        if (first != null && second != null)
+            return first.value == second.value && equals(first.leftChild, second.leftChild)
+                    && equals(first.rightChild, second.rightChild);
+
+        return false;
     }
 
     private boolean isLeaf(Node root) {
