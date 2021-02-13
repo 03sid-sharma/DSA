@@ -13,7 +13,9 @@ class MainTree {
         // binaryTree.traversePreOrder();
         // binaryTree.traverseInOrder();
         // binaryTree.traversePostOrder();
-        System.out.println(binaryTree.height());
+        // System.out.println(binaryTree.height());
+        // System.out.println(binaryTree.min());
+        System.out.println(binaryTree.minBST());
     }
 }
 
@@ -120,10 +122,47 @@ class Tree {
     private int height(Node root) {
         if (root == null)
             return -1;
-            
-        if (root.leftChild == null && root.rightChild == null)
+
+        if (isLeaf(root))
             return 0;
 
         return 1 + Math.max(height(root.leftChild), height(root.rightChild));
+    }
+
+    // O(log n)
+    public int minBST() {
+        if (root == null)
+            throw new IllegalStateException("root must not be null");
+
+        Node current = root;
+        Node last = current;
+
+        while (current != null) {
+            last = current;
+            current = current.leftChild;
+        }
+        return last.value;
+    }
+
+    public int min(){
+        return min(root);
+    }
+
+    // O(n)
+    private int min(Node root) {
+        if (root == null)
+            throw new IllegalStateException("root must not be null");
+
+        if (isLeaf(root))
+            return root.value;
+
+        int left = min(root.leftChild);
+        int right = min(root.rightChild);
+
+        return Math.min(Math.min(left, right), root.value);
+    }
+
+    private boolean isLeaf(Node root) {
+        return root.leftChild == null && root.rightChild == null;
     }
 }
