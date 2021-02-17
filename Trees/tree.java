@@ -8,7 +8,6 @@ class MainTree {
         binaryTree.insert(6);
         binaryTree.insert(8);
         binaryTree.insert(10);
-        // binaryTree.insert(9);
 
         // Tree binaryTree2 = new Tree();
         // binaryTree2.insert(7);
@@ -23,6 +22,7 @@ class MainTree {
         // binaryTree.traversePreOrder();
         // binaryTree.traverseInOrder();
         // binaryTree.traversePostOrder();
+        
         // System.out.println(binaryTree.height());
         // System.out.println(binaryTree.min());
         // System.out.println(binaryTree.max());
@@ -30,6 +30,8 @@ class MainTree {
         // System.out.println(binaryTree.maxBST());
 
         // System.out.println(binaryTree.equals(binaryTree2));
+
+        // binaryTree.swapRoot();
         System.out.println(binaryTree.isBinarySearchTree());
     }
 }
@@ -230,6 +232,12 @@ class Tree {
 
     private boolean isLeaf(Node root) {
         return root.leftChild == null && root.rightChild == null;
+    }
+
+    public void swapRoot(){
+        Node temp=root.leftChild;
+        root.leftChild = root.rightChild;
+        root.rightChild = temp;
     }
 
     public boolean isBinarySearchTree() {
