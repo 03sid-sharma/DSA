@@ -1,3 +1,5 @@
+import java.util.*;
+
 class MainTree {
     public static void main(String[] args) {
         Tree binaryTree = new Tree();
@@ -22,7 +24,7 @@ class MainTree {
         // binaryTree.traversePreOrder();
         // binaryTree.traverseInOrder();
         // binaryTree.traversePostOrder();
-        
+
         // System.out.println(binaryTree.height());
         // System.out.println(binaryTree.min());
         // System.out.println(binaryTree.max());
@@ -32,7 +34,11 @@ class MainTree {
         // System.out.println(binaryTree.equals(binaryTree2));
 
         // binaryTree.swapRoot();
-        System.out.println(binaryTree.isBinarySearchTree());
+        // System.out.println(binaryTree.isBinarySearchTree());
+        ArrayList<Integer> list = binaryTree.getNodesAtDistance(1);
+        for (int item : list) {
+            System.out.print(item + " ");
+        }
     }
 }
 
@@ -234,8 +240,8 @@ class Tree {
         return root.leftChild == null && root.rightChild == null;
     }
 
-    public void swapRoot(){
-        Node temp=root.leftChild;
+    public void swapRoot() {
+        Node temp = root.leftChild;
         root.leftChild = root.rightChild;
         root.rightChild = temp;
     }
@@ -254,5 +260,24 @@ class Tree {
 
         return isBinarySearchTree(root.leftChild, min, root.value - 1)
                 && isBinarySearchTree(root.rightChild, root.value + 1, max);
+    }
+
+    public ArrayList<Integer> getNodesAtDistance(int distance) {
+        ArrayList<Integer> list = new ArrayList<>();
+        getNodesAtDistance(root, distance, list);
+        return list;
+    }
+
+    private void getNodesAtDistance(Node root, int distance, ArrayList<Integer> list) {
+        if (root == null)
+            return;
+
+        if (distance == 0) {
+            list.add(root.value);
+            return;
+        }
+
+        getNodesAtDistance(root.leftChild, distance - 1, list);
+        getNodesAtDistance(root.rightChild, distance - 1, list);
     }
 }
