@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 
 class Main{
@@ -9,8 +10,8 @@ class Main{
         list.addLast(400);
         list.removeLast();
         // System.out.println(list.contains(200));
-        System.out.println(list.size());
-
+        // System.out.println(list.size());
+        // System.out.println(Arrays.toString(list.toArray()));
     }
 }
 
@@ -32,9 +33,20 @@ public class LinkedList {
         return indexOf(item) != -1;
     }
 
+    public int[] toArray(){
+        int arr[] = new int[size];
+        var current = first;
+        var index = 0;
+        while(current != null){
+            arr[index++] = current.value;
+            current = current.next;
+        }
+        return arr;
+    }
+
     public void removeFirst(){
         if(isEmpty())   
-        throw new NoSuchElementException();
+            throw new NoSuchElementException();
         
         if(first == last){
             first = last = null;
