@@ -9,8 +9,10 @@ class Main{
         list.addLast(300);
         list.addLast(400);
         list.removeLast();
+        // list.reverse();
         // System.out.println(list.contains(200));
         // System.out.println(list.size());
+        System.out.println(list.getKthNodeFromEnd(2));
         // System.out.println(Arrays.toString(list.toArray()));
     }
 }
@@ -31,6 +33,42 @@ public class LinkedList {
 
     public boolean contains(int item){
         return indexOf(item) != -1;
+    }
+
+    public void reverse(){
+        if(isEmpty()) return;
+
+        var previous = first;
+        var current = first.next;
+        while(current != null){
+            var next = current.next;
+            current.next = previous;
+            previous = current;
+            current = next;
+        }
+
+        last = first;
+        last.next = null;
+        first = previous;
+    }
+
+    public int getKthNodeFromEnd(int k){
+        if(isEmpty()) 
+            throw new IllegalStateException();
+
+        var a = first;
+        var b = first;
+        for (int i = 0; i < k-1; i++) {
+            b = b.next;
+            if(b == null) 
+                throw new IllegalArgumentException();
+        }
+
+        while(b != last){
+            a=a.next;
+            b=b.next;
+        }
+        return a.value;
     }
 
     public int[] toArray(){
