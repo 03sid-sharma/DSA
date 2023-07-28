@@ -8,11 +8,12 @@ class Main{
         list.addLast(200);
         list.addLast(300);
         list.addLast(400);
-        list.removeLast();
+        // list.removeLast();
         // list.reverse();
+        list.printMiddle();
         // System.out.println(list.contains(200));
         // System.out.println(list.size());
-        System.out.println(list.getKthNodeFromEnd(2));
+        // System.out.println(list.getKthNodeFromEnd(2));
         // System.out.println(Arrays.toString(list.toArray()));
     }
 }
@@ -33,6 +34,22 @@ public class LinkedList {
 
     public boolean contains(int item){
         return indexOf(item) != -1;
+    }
+
+    public void printMiddle(){
+        var a = first;
+        var b = first;
+
+        while (b != last && b.next != last) {
+            b = b.next.next;
+            a = a.next;
+        }
+
+        if(b == last)
+            System.out.println(a.value);
+        else
+            System.out.println(a.value + "," + a.next.value);
+
     }
 
     public void reverse(){
