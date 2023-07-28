@@ -4,13 +4,15 @@ import java.util.NoSuchElementException;
 class Main{
     public static void main(String[] args) {
         LinkedList list = new LinkedList();
-        list.addLast(100);
-        list.addLast(200);
-        list.addLast(300);
-        list.addLast(400);
+        // list.addLast(100);
+        // list.addLast(200);
+        // list.addLast(300);
+        // list.addLast(400);
+        var ll = list.createWithLoop();
+        System.out.println(ll.hasLoop());
         // list.removeLast();
         // list.reverse();
-        list.printMiddle();
+        // list.printMiddle();
         // System.out.println(list.contains(200));
         // System.out.println(list.size());
         // System.out.println(list.getKthNodeFromEnd(2));
@@ -36,6 +38,36 @@ public class LinkedList {
         return indexOf(item) != -1;
     }
 
+    public boolean hasLoop(){
+        var slow = first;
+        var fast = first;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+            if(fast == slow)
+                return true;
+        }
+        return false;
+    }
+
+    public LinkedList createWithLoop() {
+        var list = new LinkedList();
+        list.addLast(10);
+        list.addLast(20);
+        list.addLast(30);
+
+        // Get a reference to 30
+        var node = list.last;
+
+        list.addLast(40);
+        list.addLast(50);
+
+        // Create the loop
+        list.last.next = node;
+
+        return list;
+    }
     public void printMiddle(){
         var a = first;
         var b = first;
