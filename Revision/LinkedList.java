@@ -68,6 +68,7 @@ public class LinkedList {
 
         return list;
     }
+    
     public void printMiddle(){
         var a = first;
         var b = first;
@@ -166,6 +167,21 @@ public class LinkedList {
             current = current.next;
         }
         return null;
+    }
+
+    public void addAtIndex(int item, int position) {
+        Node node = new Node(item);
+        Node current = first;
+        int index = 0;
+        while (current != null) {
+            if (index == position - 1) {
+                Node temp = current.next;
+                current.next = node;
+                node.next = temp;
+            }
+            current = current.next;
+            index++;
+        }
     }
 
     public void addLast(int value){
