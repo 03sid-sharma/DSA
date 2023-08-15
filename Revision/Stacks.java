@@ -2,16 +2,16 @@ import java.util.*;
 
 class Main{
     public static void main(String[] args) {
-        // StringReverser str = new StringReverser();
+        StringReverser str = new StringReverser();
         // System.out.println(str.reverse(null));
-        // System.out.println(str.balancedExpr("{p[0-<0->]}"));
-        Stck stck = new Stck();
-        stck.push(10);
-        stck.push(20);
-        stck.push(30);
-        stck.push(40);
-        stck.pop();
-        System.out.println(stck.isEmpty());
+        System.out.println(str.balancedExpr("{{{}}}"));
+        // Stck stck = new Stck();
+        // stck.push(10);
+        // stck.push(20);
+        // stck.push(30);
+        // stck.push(40);
+        // stck.pop();
+        // System.out.println(stck.isEmpty());
 
     }
 }
@@ -86,6 +86,6 @@ class StringReverser{
                     return false;
             }
         }
-        return true;
+        return stack.isEmpty();
     }
 }
