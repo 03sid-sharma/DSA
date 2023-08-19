@@ -1,4 +1,4 @@
-import java.util.ArrayDeque;
+// import java.util.ArrayDeque;
 import java.util.Arrays;
 // import java.util.Queue;
 import java.util.Stack;
@@ -28,11 +28,20 @@ class Main {
         // System.out.println(queue);
         // System.out.println(front);
 
-        StackQueue sq = new StackQueue();
-        sq.enqueue(10);
-        sq.enqueue(20);
-        sq.enqueue(30);
-        System.out.println(sq.dequeue());
+        // StackQueue sq = new StackQueue();
+        // sq.enqueue(10);
+        // sq.enqueue(20);
+        // sq.enqueue(30);
+        // System.out.println(sq.dequeue());
+        PriorityQueue pq = new PriorityQueue();
+        pq.add(30);
+        pq.add(20);
+        pq.add(50);
+        
+        System.out.println(pq);
+        while (!pq.isEmpty()) {
+            System.out.println(pq.remove());
+        }
     }
 
     // public static void reverse(Queue<Integer> queue){
@@ -113,5 +122,49 @@ class StackQueue{
                 stack2.push(stack1.pop());
             }
         }
+    }
+}
+
+class PriorityQueue{
+    private int[] arr = new int[5];
+    private int count;
+
+    public void add(int item){
+        if(isFull())
+            throw new IllegalStateException();
+
+        int i = shiftItemsToInsert(item);
+        arr[i] = item;
+        count++;
+    }
+
+    private int shiftItemsToInsert(int item) {
+        int i;
+        for(i = count - 1; i >= 0; i--){
+            if(arr[i] > item)
+                arr[i + 1] = arr[i];
+            else    
+                break;
+        }
+        return i + 1;
+    }
+
+    private boolean isFull() {
+        return count == arr.length;
+    }
+
+    public int remove(){
+        if(isEmpty())
+            throw new IllegalStateException();
+        return arr[--count];        
+    }
+
+    @Override
+    public String toString(){
+        return Arrays.toString(arr);
+    }
+
+    public boolean isEmpty() {
+        return count == 0;
     }
 }
