@@ -1,14 +1,14 @@
 public class ReviseArray {
     public static void main(String[] args) {
-        Array arr = new Array(1);
+        Array arr = new Array(5);
         arr.insert(100);
         arr.insert(300);
         arr.insert(400);
         arr.insert(500);
         arr.insert(600);
-        arr.insertAt(1, 200);
+        // arr.insertAt(1, 200);
         // System.out.println(arr.indexOf(300));
-        // arr.removeAt(1);
+        arr.removeAt(3);
         // System.out.println(arr.max());
         // arr.reverse();
         arr.print();
@@ -44,6 +44,7 @@ class Array{
     }
 
     public void insert(int element){
+        // Array is full
         if(items.length==count){
             int newItems[]=new int[count*2];
             for (int i = 0; i < count; i++) {
@@ -70,7 +71,7 @@ class Array{
         if (index < 0 || index >= count)
             throw new IllegalArgumentException();
 
-        for (int i = index; i < count; i++)
+        for (int i = index; i < count - 1; i++)
             items[i] = items[i + 1];
 
         count--;
