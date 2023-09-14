@@ -1,6 +1,6 @@
-// import java.util.ArrayDeque;
+import java.util.ArrayDeque;
 import java.util.Arrays;
-// import java.util.Queue;
+import java.util.Queue;
 import java.util.Stack;
 
 /**
@@ -9,12 +9,15 @@ import java.util.Stack;
 class Main {
 
     public static void main(String[] args) {
-        // Queue<Integer> queue = new ArrayDeque<>();
-        // queue.add(10);
-        // queue.add(20);
-        // queue.add(30);
+        Queue<Integer> queue = new ArrayDeque<>();
+        queue.add(10);
+        queue.add(20);
+        queue.add(30);
+        queue.add(40);
+        queue.add(50);
+        reverseFirstKElements(queue, 3);
+        System.out.println(queue);
         // reverse(queue);
-        // System.out.println(queue);
 
         // ArrrayQueue queue = new ArrrayQueue(5);
         // queue.enqueue(10);
@@ -33,15 +36,15 @@ class Main {
         // sq.enqueue(20);
         // sq.enqueue(30);
         // System.out.println(sq.dequeue());
-        PriorityQueue pq = new PriorityQueue();
-        pq.add(30);
-        pq.add(20);
-        pq.add(50);
+        // PriorityQueue pq = new PriorityQueue();
+        // pq.add(30);
+        // pq.add(20);
+        // pq.add(50);
         
-        System.out.println(pq);
-        while (!pq.isEmpty()) {
-            System.out.println(pq.remove());
-        }
+        // System.out.println(pq);
+        // while (!pq.isEmpty()) {
+        //     System.out.println(pq.remove());
+        // }
     }
 
     // public static void reverse(Queue<Integer> queue){
@@ -52,6 +55,19 @@ class Main {
     //     while (!stack.isEmpty()) 
     //         queue.add(stack.pop());
     // }
+
+    public static void reverseFirstKElements(Queue<Integer> queue, int k){
+        Stack<Integer> stack = new Stack<>();
+
+        for (int i = 0; i < k; i++)
+            stack.push(queue.remove());
+
+        while (!stack.isEmpty())
+            queue.add(stack.pop());
+        
+        for (int index = 0; index < queue.size() - k ; index++)
+            queue.add(queue.remove());
+    }
 }
 /**
  * Queue
