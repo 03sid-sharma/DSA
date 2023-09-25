@@ -2,14 +2,34 @@ import java.util.*;
 
 class Main{
     public static void main(String[] args) {
-        ArrayList<Integer> nums = new ArrayList<>(List.of(5,10,1,5,2));
+        // ArrayList<Integer> nums = new ArrayList<>(List.of(5,10,1,5,2));
         // Minimum Right Shifts to Sort the Array
-        minRightShiftsToSort(nums);
+        // minRightShiftsToSort(nums);
         // Minimum Array Length After Pair Removals
-        minLengthAfterRemovals(nums);
+        // minLengthAfterRemovals(nums);
         // Count set bits
-        System.out.println(sumIndicesWithKSetBits(nums,1));
+        // System.out.println(sumIndicesWithKSetBits(nums,1));
+        maximumOddBinaryNumber("010");
+    }
+    
+    public static void maximumOddBinaryNumber(String s) {
+        int count = 0;
 
+        for (char c : s.toCharArray()) {
+            if (c == '1')
+                count++;
+        }
+
+        StringBuilder result = new StringBuilder();
+        
+        for (int i = 0; i < count - 1; i++)
+            result.append('1');
+
+        for (int i = 0; i < s.length() - count; i++)
+            result.append('0');
+
+        result.append('1');
+        System.out.println(result.toString()); 
     }
 
     public static int sumIndicesWithKSetBits(List<Integer> nums, int k) {
