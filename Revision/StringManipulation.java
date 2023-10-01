@@ -3,6 +3,7 @@ import java.util.*;
 class StringManipulation{
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
+        System.out.println("Please enter string : ");
         String str = scan.nextLine();
         // System.out.println("Vowels are " + countVowels(str));
         // System.out.println("Reverse String: " + reverseString(str));
@@ -10,9 +11,35 @@ class StringManipulation{
         // System.out.println("Rotation possible : " + isRotation("ABCD","DACB"));
         // System.out.println("Is Palindrome : " + isPalindrome(str));
         // System.out.println("Removed Duplicates : " + removeDuplicates(str));
-        System.out.println("Find most repeated : " + findMostRepeated(str));
+        // System.out.println("Find most repeated : " + findMostRepeated(str));
+        // System.out.println("Capitalized String : " + capitalize(str));
+        System.out.println("Anagram : " + anagram("ABC", "CBAD"));
         
         scan.close();
+    }
+
+    private static boolean anagram(String first, String second) {
+        char words[] = first.toCharArray();
+        Arrays.sort(words);
+        char sorted[] = second.toCharArray();
+        Arrays.sort(sorted);
+        return Arrays.equals(words, sorted);
+    }
+
+    private static String capitalize(String str) {
+        if(str == null || str.trim().isEmpty())
+            return "";
+
+        String words[] = str
+            .trim()
+            .replaceAll(" +"," ")
+            .split(" ");
+        
+        for (int i = 0; i < words.length; i++) {
+            words[i] = words[i].substring(0, 1).toUpperCase()
+                     + words[i].substring(1).toLowerCase(); 
+        }
+        return String.join(" ", words);
     }
 
     private static char findMostRepeated(String str) {
