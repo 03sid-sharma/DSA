@@ -9,7 +9,19 @@ class TreesRevise{
         bst.insert(6);
         bst.insert(8);
         bst.insert(10);
+        
+        Trees bst2 = new Trees();
+        // Insert in Second BST
+        bst2.insert(7);
+        bst2.insert(4);
+        bst2.insert(9);
+        bst2.insert(1);
+        bst2.insert(6);
+        bst2.insert(8);
+        bst2.insert(10);
 
+        //Compare Trees
+        System.out.println(bst.equals(bst2));
         // Search in BST
         // System.out.println(bst.find(22));
 
@@ -24,7 +36,7 @@ class TreesRevise{
         // System.out.println(bst.height());
 
         // Minimum value of BST and BT
-        System.out.println(bst.minimumValue());
+        // System.out.println(bst.minimumValue());
     }
 }
 
@@ -44,6 +56,24 @@ class Trees {
     }
 
     private Node root;
+
+    public boolean equals(Trees other){
+        if(other == null)
+            return false;
+        return equals(root, other.root);
+    }
+
+    private boolean equals(Node first, Node second){
+        if(first == null && second == null)
+            return true;
+
+        if(first != null && second != null)
+            return first.value == second.value
+            && equals(first.leftChild,second.leftChild)
+            && equals(first.rightChild,second.rightChild);
+
+        return false;
+    }
 
     public void insert(int value) {
         Node node = new Node(value);

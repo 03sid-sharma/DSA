@@ -9,7 +9,21 @@ class Main{
         // minLengthAfterRemovals(nums);
         // Count set bits
         // System.out.println(sumIndicesWithKSetBits(nums,1));
-        maximumOddBinaryNumber("010");
+        // maximumOddBinaryNumber("010");
+        System.out.println(differenceOfSums(10,3));
+    }
+
+    
+
+    public static int differenceOfSums(int n, int m) {
+        int num1 = 0, num2=0;
+        for(int  i = 1; i <= n; i++){
+            if(i % m != 0)
+                num1 += i;
+            else
+                num2 += i;
+        }
+        return num1 - num2;
     }
     
     public static void maximumOddBinaryNumber(String s) {
