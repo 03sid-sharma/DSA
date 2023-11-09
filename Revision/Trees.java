@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 class TreesRevise{
     public static void main(String[] args) {
         Trees bst = new Trees();
@@ -9,19 +11,31 @@ class TreesRevise{
         bst.insert(6);
         bst.insert(8);
         bst.insert(10);
+
+        // BFS
+        bst.traverseLevelOrder();
+
+        // Node at K distance
+        // ArrayList<Integer> list = bst.getNodesAtDistance(1);
+        // for (int item : list)
+        //     System.out.print(item + " ");
+
+        // bst.swapRoot();
+        // System.out.println(bst.isBinarySearchTree());
         
-        Trees bst2 = new Trees();
+        // Trees bst2 = new Trees();
         // Insert in Second BST
-        bst2.insert(7);
-        bst2.insert(4);
-        bst2.insert(9);
-        bst2.insert(1);
-        bst2.insert(6);
-        bst2.insert(8);
-        bst2.insert(10);
+        // bst2.insert(7);
+        // bst2.insert(4);
+        // bst2.insert(9);
+        // bst2.insert(1);
+        // bst2.insert(6);
+        // bst2.insert(8);
+        // bst2.insert(10);
 
         //Compare Trees
-        System.out.println(bst.equals(bst2));
+        // System.out.println(bst.equals(bst2));
+
         // Search in BST
         // System.out.println(bst.find(22));
 
@@ -56,6 +70,54 @@ class Trees {
     }
 
     private Node root;
+
+    public void traverseLevelOrder() {
+        for (int i = 0; i < height(); i++) {
+            for (var item : getNodesAtDistance(i))
+                System.out.print(item + " ");
+        }
+    }
+
+    // Node at K distance 
+    public ArrayList<Integer> getNodesAtDistance(int distance) {
+        ArrayList<Integer> list = new ArrayList<>();
+        getNodesAtDistance(root, distance, list);
+        return list;
+    }
+
+    private void getNodesAtDistance(Node root, int distance, ArrayList<Integer> list) {
+        if (root == null)
+            return;
+
+        if (distance == 0) {
+            list.add(root.value);
+            return;
+        }
+
+        getNodesAtDistance(root.leftChild, distance - 1, list);
+        getNodesAtDistance(root.rightChild, distance - 1, list);
+    }
+
+    // For testing Valid BST
+    public void swapRoot(){
+        Node temp = root.leftChild;
+        root.leftChild = root.rightChild;
+        root.rightChild = temp;
+    }
+    public boolean isBinarySearchTree(){
+        return isBinarySearchTree(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private boolean isBinarySearchTree(Node root, int min, int max) {
+        if(root == null)
+            return true;
+        
+        if(root.value < min || root.value > max)
+            return false;
+
+        return isBinarySearchTree(root.leftChild, min, root.value - 1)
+                && isBinarySearchTree(root.rightChild, root.value + 1, max);
+    }
 
     public boolean equals(Trees other){
         if(other == null)
