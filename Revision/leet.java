@@ -18,8 +18,155 @@ class Main{
 
         // System.out.println(Arrays.toString(findIndices(new int[]{5,1,4,1},2,4)));
         // System.out.println(shortestBeautifulSubstring("100011001",3));
-        System.out.println(minSum(new int[]{3,2,0,1,0}, new int[]{6,5,0}));
+        // System.out.println(minSum(new int[]{3,2,0,1,0}, new int[]{6,5,0}));
+        // System.out.println(findMinimumOperations("abc","abb","ab"));
+        // System.out.println(findMinimumOperations("cxx","a","a"));
+        // for (Integer item : findWordsContaining(new String[]{"abc","bcd","aaaa","cbc"}, 'a'))
+        // {
+        //     System.out.println(item);
+        // }
+        // System.out.println(Arrays.toString(lexicographicallySmallestArray(new int[]{5,100,44,45,16,30,14,65,83,64}, 15)));
+        // System.out.println(Arrays.toString(findMissingAndRepeatedValues(new int[][]{{9,1,7},{8,9,2},{3,4,6}})));
+        // System.out.println(areaOfMaxDiagonal(new int[][]{{9,3},{8,6}}));
+        System.out.println(maxFrequencyElements(new int[]{1,2,3,4,5}));
+    }
 
+    public static int maxFrequencyElements(int[] nums) {
+        Map<Integer,Integer> map = new HashMap<>();
+        int max = 0;
+        for (int i : nums) {
+            int count = map.getOrDefault(i, 0) + 1;
+            map.put(i, count);
+            max = Math.max(max, count);
+        }
+
+        int result = 0;
+        for (int count : map.values())
+            if (count == max)
+                result += count;
+
+        return result;
+    }
+
+    public static int areaOfMaxDiagonal(int[][] dimensions) {
+   int n = dimensions.length;
+        int[] area = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            int length = dimensions[i][0];
+            int width = dimensions[i][1];
+            int diagonal = (int) Math.sqrt(length * length + width * width);
+            area[i] = diagonal * 1000 + length * width; 
+        }
+
+        Arrays.sort(area);
+
+        int maxArea = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            int length = dimensions[i][0];
+            int width = dimensions[i][1];
+            int diagonal = (int) Math.sqrt(length * length + width * width);
+            maxArea = Math.max(maxArea, length * width);
+            if (diagonal == area[i] / 1000) {
+                break; 
+            }
+        }
+
+        return maxArea;
+}
+
+
+
+
+
+   public static int[] findMissingAndRepeatedValues(int[][] grid) {
+    int n = grid.length;
+    int[] count = new int[n * n + 1];
+    int a = 0;
+    int b = 0;
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            int num = grid[i][j];
+            count[num]++;
+        }
+    }
+
+    for (int i = 1; i <= n * n; i++) {
+        if (count[i] == 2) 
+            a = i;
+        else if (count[i] == 0)
+            b = i;
+    }
+
+    return new int[]{a, b};
+}
+
+    public static int[] lexicographicallySmallestArray(int[] nums, int limit) {
+    for (int i = 0; i < nums.length; i++) {
+        for (int j = i + 1; j < nums.length; j++) {
+            if (Math.abs(nums[i] - nums[j]) <= limit && compareArrays(nums, i, j)) {
+                int temp = nums[i];
+                nums[i] = nums[j];
+                nums[j] = temp;
+            }
+        }
+    }
+    return nums;
+}
+
+// Helper function to compare arrays lexicographically
+private static boolean compareArrays(int[] nums, int i, int j) {
+    for (int k = 0; k < i; k++) {
+        if (nums[k] < nums[i]) {
+            return false;
+        } else if (nums[k] > nums[i]) {
+            return true;
+        }
+    }
+    return nums[i] > nums[j];
+}
+    public static List<Integer> findWordsContaining(String[] words, char x) {
+        List<Integer> result = new ArrayList<>();
+        int count = 0;
+        for (String word: words) {
+            for (char ch : word.toCharArray()) {
+                if(ch == x){
+                    result.add(count);
+                    break;
+                }
+            }
+            count++;
+        }
+
+        return result;
+    }
+
+    public static int findMinimumOperations(String s1, String s2, String s3) {
+        
+        if(s1.length() < 2 && s2.length() < 2 && s3.length() < 2)
+            return 0;
+
+        if(s1.length() == s2.length() && s2.length() == s3.length() && s3.length() == s1.length()
+            || s1.length() < 2 ||  s2.length() < 2 || s3.length() < 2)
+            return -1;
+
+        int minLength = 2;
+        if(s1.length() < s2.length() && s1.length() >= minLength)
+            minLength = s1.length();
+        else if(s2.length() < s3.length() && s2.length() >= minLength)
+            minLength = s2.length();
+        else if(s3.length() < s1.length() && s3.length() >= minLength)
+            minLength = s3.length();
+        int count = 0;
+        if(s1.length() > minLength)
+            count += s1.length() - minLength;
+        if(s2.length() > minLength)
+            count += s2.length() - minLength;
+        if(s3.length() > minLength)
+            count += s3.length() - minLength;
+
+        return count;
     }
 
     public static long minSum(int[] nums1, int[] nums2) {
