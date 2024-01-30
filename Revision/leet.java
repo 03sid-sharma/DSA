@@ -28,7 +28,24 @@ class Main{
         // System.out.println(Arrays.toString(lexicographicallySmallestArray(new int[]{5,100,44,45,16,30,14,65,83,64}, 15)));
         // System.out.println(Arrays.toString(findMissingAndRepeatedValues(new int[][]{{9,1,7},{8,9,2},{3,4,6}})));
         // System.out.println(areaOfMaxDiagonal(new int[][]{{9,3},{8,6}}));
-        System.out.println(maxFrequencyElements(new int[]{1,2,3,4,5}));
+        // System.out.println(maxFrequencyElements(new int[]{1,2,3,4,5}));
+        System.out.println(countKeyChanges("mDVD"));
+    }
+
+    public static int countKeyChanges(String s) {
+        if(s.length()<=1)
+            return 0;
+        int count = 0;
+        char prev = s.charAt(0);
+        for (int i = 1; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if(Character.toLowerCase(ch) != Character.toLowerCase(prev))
+                count++;
+            
+            prev =  ch;
+        }
+        
+        return count;
     }
 
     public static int maxFrequencyElements(int[] nums) {
