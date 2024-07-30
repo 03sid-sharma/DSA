@@ -64,10 +64,56 @@ class Main {
         // System.out.println(isValid("UuE6"));
         // System.out.println(isValid("UuE6"));
         // System.out.println(lengthOfLastWord("Hello World siddharth"));
-        System.out.println(lengthOfLastWord("Hello World siddharth"));
+        // System.out.println(minimumAverage(new int[] {7,8,3,4,15,13,4,1}));
+        System.out.println(getSmallestString("45320"));
+    }
+    
+    public static String getSmallestString(String s) {
+        char[] chars = s.toCharArray();
+        boolean swapped = false;
+
+        for (int i = 0; i < chars.length - 1; i++) {
+            int num1 = Character.getNumericValue(chars[i]);
+            int num2 = Character.getNumericValue(chars[i + 1]);
+
+            if (num1 % 2 == num2 % 2) {
+                if (chars[i] > chars[i + 1]) {
+                    char temp = chars[i];
+                    chars[i] = chars[i + 1];
+                    chars[i + 1] = temp;
+                    swapped = true;
+                    break;
+                }
+            }
+        }
+        return swapped ? new String(chars) : s;
     }
 
-    
+//     public static double minimumAverage(int[] nums) {
+//         int n = nums.length;
+//         List<Float> averages = new ArrayList<>();
+//         List<Integer> numList = new ArrayList<>();
+//         for (int num : nums) 
+//             numList.add(num);
+        
+
+//         for (int i = 0; i < n / 2; i++) {
+//             float min = Arrays.stream(nums).min().orElseThrow(IllegalArgumentException::new);
+//             float max = Arrays.stream(nums).max().orElseThrow(IllegalArgumentException::new);
+
+//             averages.add((min + max) / 2.0f);
+//             numList.remove(min);
+//             numList.remove(max);
+//         }
+// System.out.println(numList);
+// System.out.println(averages);
+
+//         OptionalDouble minAverage = averages.stream()
+//                 .mapToDouble(Float::doubleValue)
+//                 .min();
+
+//         return minAverage.orElseThrow(IllegalArgumentException::new);
+//     }
 
     // public static int lengthOfLastWord(String s) {
     //     String arr[] = s.trim().split(" ");
