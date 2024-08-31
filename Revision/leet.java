@@ -65,29 +65,50 @@ class Main {
         // System.out.println(isValid("UuE6"));
         // System.out.println(lengthOfLastWord("Hello World siddharth"));
         // System.out.println(minimumAverage(new int[] {7,8,3,4,15,13,4,1}));
-        System.out.println(getSmallestString("45320"));
+        // System.out.println(getSmallestString("45320"));
+        System.out.println(generateKey(1, 10, 1000)); // Output: 0
+        System.out.println(generateKey(987, 879, 798)); // Output: 777
+        System.out.println(generateKey(1, 2, 3)); // Output: 1
     }
-    
-    public static String getSmallestString(String s) {
-        char[] chars = s.toCharArray();
-        boolean swapped = false;
 
-        for (int i = 0; i < chars.length - 1; i++) {
-            int num1 = Character.getNumericValue(chars[i]);
-            int num2 = Character.getNumericValue(chars[i + 1]);
+    public static int generateKey(int num1, int num2, int num3) {
+        String str1 = String.format("%04d", num1);
+        String str2 = String.format("%04d", num2);
+        String str3 = String.format("%04d", num3);
 
-            if (num1 % 2 == num2 % 2) {
-                if (chars[i] > chars[i + 1]) {
-                    char temp = chars[i];
-                    chars[i] = chars[i + 1];
-                    chars[i + 1] = temp;
-                    swapped = true;
-                    break;
-                }
-            }
+        StringBuilder key = new StringBuilder();
+
+        for (int i = 0; i < 4; i++) {
+            int digit1 = str1.charAt(i) - '0';
+            int digit2 = str2.charAt(i) - '0';
+            int digit3 = str3.charAt(i) - '0';
+
+            key.append(Math.min(Math.min(digit1, digit2), digit3));
         }
-        return swapped ? new String(chars) : s;
+
+        return Integer.parseInt(key.toString());
     }
+
+    // public static String getSmallestString(String s) {
+    //     char[] chars = s.toCharArray();
+    //     boolean swapped = false;
+
+    //     for (int i = 0; i < chars.length - 1; i++) {
+    //         int num1 = Character.getNumericValue(chars[i]);
+    //         int num2 = Character.getNumericValue(chars[i + 1]);
+
+    //         if (num1 % 2 == num2 % 2) {
+    //             if (chars[i] > chars[i + 1]) {
+    //                 char temp = chars[i];
+    //                 chars[i] = chars[i + 1];
+    //                 chars[i + 1] = temp;
+    //                 swapped = true;
+    //                 break;
+    //             }
+    //         }
+    //     }
+    //     return swapped ? new String(chars) : s;
+    // }
 
 //     public static double minimumAverage(int[] nums) {
 //         int n = nums.length;
