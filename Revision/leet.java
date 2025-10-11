@@ -66,10 +66,44 @@ class Main {
         // System.out.println(lengthOfLastWord("Hello World siddharth"));
         // System.out.println(minimumAverage(new int[] {7,8,3,4,15,13,4,1}));
         // System.out.println(getSmallestString("45320"));
-        System.out.println(generateKey(1, 10, 1000)); // Output: 0
-        System.out.println(generateKey(987, 879, 798)); // Output: 777
-        System.out.println(generateKey(1, 2, 3)); // Output: 1
+        // System.out.println(generateKey(1, 10, 1000)); // Output: 0
+        // System.out.println(generateKey(987, 879, 798)); // Output: 777
+        // System.out.println(generateKey(1, 2, 3)); // Output: 1
+        // System.out.println(recoverOrder(new int[] {3,1,2,5,4}, new int[] {1,3,4})); 
+        System.out.println(scoreBalance("ac"));
     }
+
+    public static boolean scoreBalance(String s) {
+        int totalScore = 0;
+
+        for (char ch : s.toCharArray()) {
+            totalScore += ch - 'a' + 1;
+        }
+
+        int leftScore = 0;
+        for (int i = 0; i < s.length() - 1; i++) { 
+            leftScore += s.charAt(i) - 'a' + 1;
+            int rightScore = totalScore - leftScore;
+
+            if (leftScore == rightScore)
+                return true; 
+        }
+        return false;
+    }
+
+    public static int[] recoverOrder(int[] order, int[] friends) {
+        int n1 = order.length;
+        int n2 = friends.length;
+        int max = Math.max(n1, n2);
+        int result[] = new int[max];
+        int count = 0;
+        for(int i=0; i<= max - 1; i++){
+            if(order[i] == friends[i])
+                result[count++] = friends[i];
+        }
+        return result;
+    }
+
 
     public static int generateKey(int num1, int num2, int num3) {
         String str1 = String.format("%04d", num1);
