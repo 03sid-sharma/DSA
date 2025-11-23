@@ -66,28 +66,99 @@ class Main {
         // System.out.println(lengthOfLastWord("Hello World siddharth"));
         // System.out.println(minimumAverage(new int[] {7,8,3,4,15,13,4,1}));
         // System.out.println(getSmallestString("45320"));
-        System.out.println(generateKey(1, 10, 1000)); // Output: 0
-        System.out.println(generateKey(987, 879, 798)); // Output: 777
-        System.out.println(generateKey(1, 2, 3)); // Output: 1
+        // System.out.println(generateKey(1, 10, 1000)); // Output: 0
+        // System.out.println(generateKey(987, 879, 798)); // Output: 777
+        // System.out.println(generateKey(1, 2, 3)); // Output: 1
+        // System.out.println(reportSpam(["hello","world","leetcode"],["world","hello"])); // Output: 1
+        // System.out.println(countValidSelections(new int[]{1,0,2,0,3})); // Output: 1
+        // System.out.println(numOfUnplacedFruits(new int[]{4,2,5}, new int[]{3,5,4})); // Output: 1
+        System.out.println(sumAndMultiply(10203004)); // Output: 1
     }
 
-    public static int generateKey(int num1, int num2, int num3) {
-        String str1 = String.format("%04d", num1);
-        String str2 = String.format("%04d", num2);
-        String str3 = String.format("%04d", num3);
-
-        StringBuilder key = new StringBuilder();
-
-        for (int i = 0; i < 4; i++) {
-            int digit1 = str1.charAt(i) - '0';
-            int digit2 = str2.charAt(i) - '0';
-            int digit3 = str3.charAt(i) - '0';
-
-            key.append(Math.min(Math.min(digit1, digit2), digit3));
+    public static long sumAndMultiply(int n) {
+        String numStr = String.valueOf(n);
+        String numStrAns = new String();
+        int sum = 0;
+        for (char c : numStr.toCharArray()) {
+            int digit = c - '0';
+            if(digit != 0){
+                sum += digit;
+                numStrAns += c;
+            }
         }
-
-        return Integer.parseInt(key.toString());
+        if(numStrAns.isEmpty()) 
+            numStrAns = "0";
+        
+        return Long.parseLong(numStrAns) * sum;
     }
+
+    // public static int numOfUnplacedFruits(int[] fruits, int[] baskets) {
+    //     Arrays.sort(fruits);
+    //     Arrays.sort(baskets);
+
+    //     int i = 0
+    //     int j = 0;
+    //     int unplacedFruits = 0;
+
+    //     while (i < fruits.length) {
+    //         while (j < baskets.length && baskets[j] <= fruits[i]) {
+    //             j++; 
+    //         }
+
+    //         if (j < baskets.length)
+    //             j++;
+    //         else
+    //             unplacedFruits++;
+        
+    //         i++;
+    //     }
+
+    //     return unplacedFruits;
+    // }
+    // public static int countValidSelections(int[] nums) {
+    //     int count = 0;
+
+    //     for (int i = 0; i < nums.length; i++) {
+    //         if (nums[i] == 0 && i++ < nums.length - 1) {
+    //             i += 1;
+    //         }
+    //         if(nums[i] > 0 && i++ < nums.length - 1){
+    //             nums[i] -= 1;
+    //             i -= 1;
+    //         }
+    //     }
+    //     System.out.println(nums.toString());
+    //     return count;
+    // }
+    // public static boolean reportSpam(String[] message, String[] bannedWords) {
+    //     int  count = 0;
+    //     for (String msg : message) {
+    //         for (String string : bannedWords) {
+    //            if(msg.equals(msg)){
+    //             count++;
+    //            } 
+    //         }
+            
+    //     }
+    //     return false;
+    // }
+    // public static int generateKey(int num1, int num2, int num3) {
+    //     String str1 = String.format("%04d", num1);
+    //     String str2 = String.format("%04d", num2);
+    //     String str3 = String.format("%04d", num3);
+
+    //     StringBuilder key = new StringBuilder();
+
+    //     for (int i = 0; i < 4; i++) {
+    //         int digit1 = str1.charAt(i) - '0';
+    //         int digit2 = str2.charAt(i) - '0';
+    //         int digit3 = str3.charAt(i) - '0';
+
+    //         key.append(Math.min(Math.min(digit1, digit2), digit3));
+    //     }
+
+    //     return Integer.parseInt(key.toString());
+    // }
 
     // public static String getSmallestString(String s) {
     //     char[] chars = s.toCharArray();
