@@ -85,6 +85,55 @@ class Main {
                 sum += digit;
                 numStrAns += c;
             }
+        // System.out.println(recoverOrder(new int[] {3,1,2,5,4}, new int[] {1,3,4})); 
+        System.out.println(scoreBalance("ac"));
+    }
+
+    public static boolean scoreBalance(String s) {
+        int totalScore = 0;
+
+        for (char ch : s.toCharArray()) {
+            totalScore += ch - 'a' + 1;
+        }
+
+        int leftScore = 0;
+        for (int i = 0; i < s.length() - 1; i++) { 
+            leftScore += s.charAt(i) - 'a' + 1;
+            int rightScore = totalScore - leftScore;
+
+            if (leftScore == rightScore)
+                return true; 
+        }
+        return false;
+    }
+
+    public static int[] recoverOrder(int[] order, int[] friends) {
+        int n1 = order.length;
+        int n2 = friends.length;
+        int max = Math.max(n1, n2);
+        int result[] = new int[max];
+        int count = 0;
+        for(int i=0; i<= max - 1; i++){
+            if(order[i] == friends[i])
+                result[count++] = friends[i];
+        }
+        return result;
+    }
+
+
+    public static int generateKey(int num1, int num2, int num3) {
+        String str1 = String.format("%04d", num1);
+        String str2 = String.format("%04d", num2);
+        String str3 = String.format("%04d", num3);
+
+        StringBuilder key = new StringBuilder();
+
+        for (int i = 0; i < 4; i++) {
+            int digit1 = str1.charAt(i) - '0';
+            int digit2 = str2.charAt(i) - '0';
+            int digit3 = str3.charAt(i) - '0';
+
+            key.append(Math.min(Math.min(digit1, digit2), digit3));
         }
         if(numStrAns.isEmpty()) 
             numStrAns = "0";
